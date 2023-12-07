@@ -23,12 +23,14 @@ def solution(numbers, target):
         if depth == len(numbers):
             if result == target:
                 ans += 1
-            return ans
+            return
 
         dfs(depth + 1, result + numbers[depth], graph)
         dfs(depth + 1, result - numbers[depth], graph)
 
         return ans
 
-    ans = dfs(0, 0, numbers)
-    return ans
+    return dfs(0, 0, numbers)
+
+
+print(solution([4, 1, 2, 1], 4))
