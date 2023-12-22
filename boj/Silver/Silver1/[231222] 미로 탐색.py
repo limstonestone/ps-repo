@@ -7,6 +7,7 @@ def try1():
     """
     - 약 20분 소요
     - 주어진 그래프를 조건에 맞게 탐색 + 최소 방문 -> BFS
+        - DFS 는 깊이를 우선적으로 탐색하므로 최단 경로를 보장하지 않음
     """
     import sys
     from collections import deque
