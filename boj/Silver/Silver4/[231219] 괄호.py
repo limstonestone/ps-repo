@@ -31,5 +31,33 @@ def try1():
         print(status if left == right else "NO")
 
 
+def try2():
+    """
+    - 약 4분 소요
+    - 두 문자 "(", ")" 의 개수가 같은지 확인하면 끝
+        - 마지막만 같으면 되는 것이 아니라, 중간에 어긋나는 부분이 있으면 중단해야 함
+    """
+    import sys
+
+    input = sys.stdin.readline
+
+    t = int(input())
+
+    for _ in range(t):
+        ps = input().rstrip()
+        left = 0
+
+        for x in ps:
+            if x == "(":
+                left += 1
+            else:
+                left -= 1
+                if left < 0:  # ")" 가 "("보다 많을 경우 중단
+                    left = -1
+                    break
+
+        print("YES" if left == 0 else "NO")  # 왼쪽과 오른쪽의 개수가 같을때만 YES
+
+
 if __name__ == "__main__":
-    try1()
+    try2()
