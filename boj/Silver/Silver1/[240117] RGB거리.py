@@ -37,5 +37,28 @@ def try1():
     print(min(dp[n]))
 
 
+def try2():
+    """
+    - 약 5분 소요
+    - 과거의 연산 값을 기억해뒀다가 활용 -> DP
+        - R,G,B 세가지 경우의 수 밖에 없으므로 2차원 DP 테이블 활용
+    - 각 단계의 최소값은 현재 해당하는 색과 그것을을 제외한 이전 값의 최소의 합 -> 점화식 도출 가능
+    """
+    import sys
+
+    input = sys.stdin.readline
+
+    n = int(input())
+    house = [list(map(int, input().split())) for _ in range(n)]
+
+    for i in range(1, n):
+        house[i][0] += min(house[i - 1][1], house[i - 1][2])  # R
+        house[i][1] += min(house[i - 1][0], house[i - 1][2])  # G
+        house[i][2] += min(house[i - 1][0], house[i - 1][1])  # B
+
+    print(min(house[n - 1]))
+
+
 if __name__ == "__main__":
-    try1()
+    # try1()
+    try2()
