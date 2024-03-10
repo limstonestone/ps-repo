@@ -22,5 +22,25 @@ def try1():
         print(int(ans))
 
 
+def try2():
+    """
+    - 약 5분 소요
+    - 강 서쪽은 무조건 다 선택되게 되어 있음 (N <= M 이므로)
+    - 즉 강 동쪽의 사이트 중 서쪽의 개수만큼 연결시킬 사이트를 고르는 것과 동치
+        - combination : mCn
+    """
+    import sys
+    import math
+
+    input = sys.stdin.readline
+
+    t = int(input())
+
+    for _ in range(t):
+        n, m = map(int, input().split())
+        print(int(math.factorial(m) / (math.factorial(m - n) * math.factorial(n))))
+
+
 if __name__ == "__main__":
-    try1()
+    # try1()
+    try2()
