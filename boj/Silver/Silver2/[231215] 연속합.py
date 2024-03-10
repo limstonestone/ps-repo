@@ -30,5 +30,32 @@ def try1():
     print(max(dp))
 
 
+def try2():
+    """
+    - 약 10분 소요
+    - 입력 범위가 10만 -> O(NlogN) 으로 해결
+        - 즉 몇개를 고를지(완전탐색)으로 구현 불가능
+    - 연속합의 최대는 아래와 같이 정의 가능
+        - 이전 까지의 연속합에 현재값을 더했을 때 최대값이 갱신되면 현재값을 더함
+        - 현재값을 더했을 때 값이 더 낮아지면 이전까지가 최대 연속합임
+        - 즉 점화식을 세울 수 있음 -> DP
+    """
+
+    import sys
+
+    input = sys.stdin.readline
+
+    n = int(input())
+    seq = list(map(int, input().split()))
+    dp = [-1000] * (n)
+    dp[0] = seq[0]
+
+    for i in range(1, n):
+        dp[i] = max(seq[i] + dp[i - 1], seq[i])
+
+    print(max(dp))
+
+
 if __name__ == "__main__":
-    try1()
+    # try1()
+    try2()
