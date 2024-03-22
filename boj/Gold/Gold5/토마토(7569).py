@@ -70,5 +70,68 @@ def try1():
     print(ans - 1)
 
 
+def try2():
+    """
+    - 약 45분 소요
+    - 최소 횟수 그래프탐색 -> BFS
+    - Z축이 새로 생긴 그래프탐색 문제와 같음
+    - 토마토 좌표를 한꺼번에 입력하여 해결
+    """
+    import sys
+    from collections import deque
+
+    input = sys.stdin.readline
+
+    m, n, h = map(int, input().split())
+
+    graph = [[list(map(int, input().split())) for _ in range(n)] for _ in range(h)]
+
+    def bfs(graph, start):
+        q = deque(start)
+        direction = [
+            [0, 1, 0],
+            [1, 0, 0],
+            [-1, 0, 0],
+            [0, -1, 0],
+            [0, 0, 1],
+            [0, 0, -1],
+        ]
+
+        while q:
+            x, y, z = q.popleft()
+
+            for dx, dy, dz in direction:
+                nx, ny, nz = x + dx, y + dy, z + dz
+                if (
+                    (0 <= nx < n)
+                    and (0 <= ny < m)
+                    and (0 <= nz < h)
+                    and (graph[nz][nx][ny] == 0)
+                ):
+                    q.append([nx, ny, nz])
+                    graph[nz][nx][ny] = graph[z][x][y] + 1
+
+        ans = 0
+        for x in range(n):
+            for y in range(m):
+                for z in range(h):
+                    if graph[z][x][y] == 0:  # 익지못한 토마토가 존재하면 바로 -1 리턴
+                        return -1
+                    ans = max(graph[z][x][y], ans)
+
+        return ans - 1
+
+    tomato = []
+    for x in range(n):
+        for y in range(m):
+            for z in range(h):
+                if graph[z][x][y] == 1:
+                    tomato.append([x, y, z])
+
+    result = bfs(graph, tomato)
+    print(result)
+
+
 if __name__ == "__main__":
-    try1()
+    # try1()
+    try2()
