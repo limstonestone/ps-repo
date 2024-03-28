@@ -43,5 +43,35 @@ def try1():
         print(ans)
 
 
+def try2():
+    """
+    - 약 17분 소요
+    - 변의 길이가 매우 크므로 매번 누적합은 불가능
+    - n은 길이가 작고 고정되어있으므로 미리 누적합을 구해놓고 좌표를 통해 이를 계산하는 것이 빠름
+    - ans = dp[x2][y2] - dp[x1 - 1][y2] - dp[x2][y1 - 1] + dp[x1 - 1][y1 - 1]
+        - 그림을 통해 해당 점화식을 이해할 수 있음
+    """
+    import sys
+
+    input = sys.stdin.readline
+
+    n, m = map(int, input().split())
+    # 0으로 패딩하여 x1,y1 이 1,1 일 때 문제를 해결
+    dp = [[0] + list(map(int, input().split())) for _ in range(n)]
+    dp = [[0] * (n + 1)] + dp
+
+    # 누적합 그래프 사전에 계산
+    for x in range(1, n + 1):
+        for y in range(1, n + 1):
+            dp[x][y] += dp[x - 1][y] + dp[x][y - 1]
+            dp[x][y] -= dp[x - 1][y - 1]
+
+    for _ in range(m):
+        x1, y1, x2, y2 = map(int, input().split())
+        ans = dp[x2][y2] - dp[x1 - 1][y2] - dp[x2][y1 - 1] + dp[x1 - 1][y1 - 1]
+        print(ans)
+
+
 if __name__ == "__main__":
-    try1()
+    # try1()
+    try2()
