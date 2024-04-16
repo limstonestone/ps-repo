@@ -33,5 +33,38 @@ def try1():
     print(visited[b] if b in visited else -1)
 
 
+def try2():
+    """
+    - 약 15분 소요
+    - 가능한 경우의 수가 그렇게 크지 않음 -> 완전탐색
+        - 그래프 탐색 알고리즘을 활용하면 각 노드별로 탐색하기 용이
+        - 최소값을 구해야하므로 BFS 활용
+    """
+    import sys
+    from collections import deque
+
+    input = sys.stdin.readline
+
+    a, b = map(int, input().split())
+    visited = dict()
+
+    q = deque([a])
+    visited[a] = 1
+
+    while q:
+        n = q.popleft()
+
+        n1 = 2 * n
+        n2 = int(str(n) + "1")
+
+        for new_n in (n1, n2):
+            if new_n <= b and not (new_n in visited):
+                visited[new_n] = visited[n] + 1
+                q.append(new_n)
+
+    print(visited[b] if b in visited else -1)
+
+
 if __name__ == "__main__":
-    try1()
+    # try1()
+    try2()
