@@ -55,5 +55,42 @@ def try1():
         print(binary_search(0, max_budget))
 
 
+def try2():
+    """
+    - 약 1시간 10분 소요
+    - 조건을 만족하는 값 탐색 + NlogN -> 이분탐색 문제, 하지만 정렬은 필요 없음
+    """
+
+    import sys
+
+    input = sys.stdin.readline
+
+    n = int(input())
+    seq = list(map(int, input().split()))
+    m = int(input())
+
+    left, right = 0, max(seq)
+
+    def sum_(mid):
+        tmp_sum = 0
+        for i in range(n):
+            tmp_sum += min(seq[i], mid)
+
+        return tmp_sum
+
+    while left <= right:
+        mid = (left + right) // 2
+        tmp_sum = sum_(mid)
+
+        if tmp_sum <= m:
+            result = mid  # 다음 갱신 시 조건 불만족을 대비하여 미리 저장
+            left = mid + 1
+        elif tmp_sum > m:
+            right = mid - 1
+
+    print(result)
+
+
 if __name__ == "__main__":
-    try1()
+    # try1()
+    try2()
